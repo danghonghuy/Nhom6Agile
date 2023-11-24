@@ -4,12 +4,15 @@
  */
 package MuonSachThuVIen;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pc
  */
 public class formDangKy extends javax.swing.JFrame {
 
+    private ThuVienService TVSV = new ThuVienService();
     private String taiKhoan;
     private String matKhau;
 
@@ -24,23 +27,9 @@ public class formDangKy extends javax.swing.JFrame {
     public formDangKy() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-
-    private boolean kiemTraDangKy(String taiKhoan, String matKhau, String nhapLaiMatKhau) {
-        if (taiKhoan.isEmpty() || matKhau.isEmpty() || nhapLaiMatKhau.isEmpty()) {
-
-            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
-            return false;
-        }
-        matKhau = matKhau.trim();
-        nhapLaiMatKhau = nhapLaiMatKhau.trim();
-        if (!matKhau.equals(nhapLaiMatKhau)) {
-
-            javax.swing.JOptionPane.showMessageDialog(this, "Mật khẩu và nhập lại mật khẩu không khớp. Vui lòng kiểm tra lại.");
-            return false;
-        }
-
-        return true;
+        btnDangKi.setToolTipText("Đăng kí người dùng");
+        getRootPane().setDefaultButton(btnDangKi);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -71,9 +60,23 @@ public class formDangKy extends javax.swing.JFrame {
         jLabel5.setText("Nhập lại mật khẩu");
 
         btnDangKi.setText("Đăng kí");
+        btnDangKi.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                btnDangKiAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         btnDangKi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDangKiActionPerformed(evt);
+            }
+        });
+        btnDangKi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnDangKiKeyPressed(evt);
             }
         });
 
@@ -128,23 +131,56 @@ public class formDangKy extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+     private boolean kiemTraDangKy(String taiKhoan, String matKhau, String nhapLaiMatKhau) {
+        if (taiKhoan.isEmpty() || matKhau.isEmpty() || nhapLaiMatKhau.isEmpty()) {
 
+            javax.swing.JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin.");
+            return false;
+        }
+        matKhau = matKhau.trim();
+        nhapLaiMatKhau = nhapLaiMatKhau.trim();
+        if (!matKhau.equals(nhapLaiMatKhau)) {
+
+            javax.swing.JOptionPane.showMessageDialog(this, "Mật khẩu và nhập lại mật khẩu không khớp. Vui lòng kiểm tra lại.");
+            return false;
+        }
+        if (TVSV.taiKhoanTonTai(taiKhoan)) {
+            JOptionPane.showMessageDialog(this, "Tài khoản đã tồn tại");
+            return false;
+        }
+        return true;
+
+    }
     private void btnDangKiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangKiActionPerformed
         String taiKhoan = txtTK.getText();
         String matKhau = txtMK.getText();
         String nhapLaiMatKhau = txtReMK.getText();
 
         if (kiemTraDangKy(taiKhoan, matKhau, nhapLaiMatKhau)) {
-            account.setTaiKhoan(taiKhoan);
-            account.setMatKhau(matKhau);
-            javax.swing.JOptionPane.showMessageDialog(this, "Đăng ký thành công!");
-            formDangNhap formDN = new formDangNhap();
-            formDN.setVisible(true);
-            this.dispose();
-        } else {
+            ThuVienService thuVienService = new ThuVienService();
 
+            // Thực hiện thêm tài khoản vào bảng taikhoankhachhang
+            boolean dangKyThanhCong = thuVienService.addKH(taiKhoan, matKhau);
+
+            if (dangKyThanhCong) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Đăng ký thành công!");
+                formDangNhap formDN = new formDangNhap();
+                formDN.setVisible(true);
+                this.dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "Đăng ký thất bại. Vui lòng thử lại!");
+            }
         }
+        
     }//GEN-LAST:event_btnDangKiActionPerformed
+
+    private void btnDangKiAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_btnDangKiAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDangKiAncestorAdded
+
+    private void btnDangKiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDangKiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDangKiKeyPressed
 
     /**
      * @param args the command line arguments
@@ -160,16 +196,24 @@ public class formDangKy extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formDangKy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDangKy.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formDangKy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDangKy.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formDangKy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDangKy.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formDangKy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDangKy.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -192,4 +236,5 @@ public class formDangKy extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtReMK;
     private javax.swing.JTextField txtTK;
     // End of variables declaration//GEN-END:variables
+
 }

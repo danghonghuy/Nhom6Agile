@@ -119,7 +119,9 @@
         <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng k&#xed;"/>
       </Properties>
       <Events>
+        <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="btnDangKiAncestorAdded"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDangKiActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnDangKiKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtMK">

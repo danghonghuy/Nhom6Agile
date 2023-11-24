@@ -139,18 +139,15 @@ public class formDangNhap extends javax.swing.JFrame {
         String taiKhoan = txtTK.getText();
         String matKhau = String.valueOf(txtMK.getPassword());
 
-        String taiKhoanNhap = txtTK.getText();
-        String matKhauNhap = String.valueOf(txtMK.getPassword());
-
-        String taiKhoanDangKy = account.getTaiKhoan();
-        String matKhauDangKy = account.getMatKhau();
+        
+        ThuVienService tvsv = new ThuVienService();
         if (taiKhoan.isEmpty() || matKhau.isEmpty()) {
 
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập đủ thông tin");
             return;
         }
 
-        if (taiKhoanNhap.equals(taiKhoanDangKy) && matKhauNhap.equals(matKhauDangKy)) {
+        if (tvsv.dangNhap(taiKhoan, matKhau)) {
             javax.swing.JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
             formSach formTV = new formSach();
             formTV.setVisible(true);
