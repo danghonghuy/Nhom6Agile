@@ -123,7 +123,8 @@ public class formSach extends javax.swing.JFrame {
         if (keyword != null && !keyword.trim().isEmpty()) {
             
 
-            searchBook(keyword, TVS.getAll());
+            List<listSach> searchResult = TVS.searchSach(keyword);
+            loadTable(searchResult);
         } else {
             JOptionPane.showMessageDialog(this, "Bạn chưa nhập từ khóa tìm kiếm.");
 

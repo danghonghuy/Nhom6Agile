@@ -107,13 +107,32 @@ public class ThuVienService {
     public boolean taiKhoanTonTai(String taiKhoan) {
         List<TaiKhoanKH> listTK = DSTK();
         for (TaiKhoanKH taiKhoanKH : listTK) {
-            if(taiKhoanKH.getTaiKhoan().equals(taiKhoan)){
-            return true;
+            if (taiKhoanKH.getTaiKhoan().equals(taiKhoan)) {
+                return true;
             }
-            
+
         }
         return false;
 
+    }
+
+    public List<listSach> searchSach(String tenSach) {
+        List<listSach> listS = new ArrayList<>();
+        sql = "select * from sach where tensach like ?";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + tenSach + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listSach ls = new listSach(rs.getString(1), rs.getString(2), rs.getString(3));
+                listS.add(ls);
+
+            }
+
+        } catch (Exception e) {
+        }
+        return listS;
     }
 
     public static void main(String[] args) {
