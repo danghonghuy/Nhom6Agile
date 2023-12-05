@@ -5,6 +5,7 @@
 package KhachHangService;
 
 import MuonSachThuVIen.formDangNhap;
+import TraSachThuVien.formTraSach;
 
 /**
  *
@@ -139,7 +140,9 @@ public class formTrangChu extends javax.swing.JFrame {
 
 
         case "Trả Sách Thư Viện":
-          
+            formTraSach ts = new formTraSach();
+            ts.setVisible(true);
+            dispose();
             
             break;
 

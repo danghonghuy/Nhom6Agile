@@ -4,7 +4,10 @@
  */
 package TraSachThuVien;
 
+import MuonSachThuVIen.ThuVienService;
 import MuonSachThuVIen.formSach;
+import MuonSachThuVIen.listSach;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +16,14 @@ import javax.swing.JOptionPane;
  */
 public class formTraSach extends javax.swing.JFrame {
 
-    /**
-     * Creates new form formTraSach
-     */
+   private ThuVienService thuVienService;
+   
     public formTraSach() {
         initComponents();
+        thuVienService = new ThuVienService();
+
+        // Gọi hàm để load tên sách từ SQL vào JComboBox
+        loadBookNames();
     }
 
     /**
@@ -168,7 +174,10 @@ public class formTraSach extends javax.swing.JFrame {
     private void cboNameBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNameBookActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboNameBookActionPerformed
-
+    private void loadBookNames() {
+        List<String> tenSachList = thuVienService.getTenSachList();
+        cboNameBook.setModel(new javax.swing.DefaultComboBoxModel<>(tenSachList.toArray(new String[0])));
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         formSach next = new formSach();
         next.setVisible(true);

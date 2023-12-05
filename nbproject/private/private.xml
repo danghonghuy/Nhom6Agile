@@ -2,6 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/HocTap/DuAnAgile-QuanLyMuonSachThuVien/src/MuonSachThuVIen/formSach.java</file>
+            <file>file:/D:/HocTap/DuAnAgile-QuanLyMuonSachThuVien/src/QuanLyKhachHang/formDSKH.java</file>
+            <file>file:/D:/HocTap/DuAnAgile-QuanLyMuonSachThuVien/src/TraSachThuVien/formTraSach.java</file>
+            <file>file:/D:/HocTap/DuAnAgile-QuanLyMuonSachThuVien/src/KhachHangService/formTrangChu.java</file>
+            <file>file:/D:/HocTap/DuAnAgile-QuanLyMuonSachThuVien/src/MuonSachThuVIen/ThuVienService.java</file>
+        </group>
     </open-files>
 </project-private>

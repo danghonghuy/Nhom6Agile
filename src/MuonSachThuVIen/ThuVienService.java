@@ -135,6 +135,38 @@ public class ThuVienService {
         return listS;
     }
 
+    public List<String> getTenSachList() {
+        List<String> tenSachList = new ArrayList<>();
+        sql = "SELECT tensach FROM sach";
+        try {
+            con = DBConnect.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                String tenSach = rs.getString(1);
+                tenSachList.add(tenSach);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng các resource
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return tenSachList;
+    }
+
     public static void main(String[] args) {
         ThuVienService TVS = new ThuVienService();
         List<listSach> kq = TVS.getAll();
